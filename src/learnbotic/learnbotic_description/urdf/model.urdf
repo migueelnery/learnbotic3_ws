@@ -1,0 +1,200 @@
+<?xml version="1.0"?>
+
+
+<robot name="learnbotic" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find learnbotic_description)/urdf/vlp16.xacro"/>
+  <xacro:include filename="$(find learnbotic_description)/urdf/camera.xacro"/>
+  <link name="base_link">
+  </link>
+
+  <link name="chassis">
+    <inertial>
+      <mass value="0.327"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0.00063300" ixy="0.00005131" ixz="0.00000034" iyy="0.00120200" iyz="0" izz="0.00102900"/>
+    </inertial>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://learnbotic_description/meshes/Capa.stl"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://learnbotic_description/meshes/Capa.stl"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="base_to_chassis" type="fixed">
+    <parent link="base_link"/>
+    <child link="chassis"/>
+    <origin rpy="1.571 0 0" xyz="0 0 0"/>
+  </joint>
+
+  <link name="esfera">
+    <inertial>
+      <mass value="0.01"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0.00000042" ixy="0" ixz="0" iyy="0.00000042" iyz="0" izz="0.00000042"/>
+    </inertial>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://learnbotic_description/meshes/Sphere.stl"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://learnbotic_description/meshes/Sphere.stl"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="chassis_to_esfera" type="continuous">
+    <parent link="chassis"/>
+    <child link="esfera"/>
+    <origin rpy="0 0 0" xyz="0.028278 -0.062603 0.000136"/>
+    <axis xyz="0 0 -1"/>
+  </joint>
+
+  <link name="esfera1">
+    <inertial>
+      <mass value="0.01"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0.00000042" ixy="0" ixz="0" iyy="0.00000042" iyz="0" izz="0.00000042"/>
+    </inertial>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://learnbotic_description/meshes/Sphere.stl"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://learnbotic_description/meshes/Sphere.stl"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="esfera_to_esfera1" type="continuous">
+    <parent link="esfera"/>
+    <child link="esfera1"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <axis xyz="0 -1 0"/>
+  </joint>
+
+  <link name="esfera2">
+    <inertial>
+      <mass value="0.01"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0.00000042" ixy="0" ixz="0" iyy="0.00000042" iyz="0" izz="0.00000042"/>
+    </inertial>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://learnbotic_description/meshes/Sphere.stl"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://learnbotic_description/meshes/Sphere.stl"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="esfera1_to_esfera2" type="continuous">
+    <parent link="esfera1"/>
+    <child link="esfera2"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <axis xyz="-1 0 0"/>
+  </joint>
+
+  <link name="left_wheel">
+    <inertial>
+      <mass value="0.027"/>
+      <origin rpy="-1.571 0 0" xyz="0 0 0"/>
+      <inertia ixx="0.00001095" ixy="0" ixz="0" iyy="0.00001095" iyz="0" izz="0.00002138"/>
+    </inertial>
+    <collision>
+      <origin rpy="-1.571 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://learnbotic_description/meshes/Wheel.stl"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="-1.571 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://learnbotic_description/meshes/Wheel.stl"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="chassis_to_left_wheel" type="continuous">
+    <parent link="chassis"/>
+    <child link="left_wheel"/>
+    <origin rpy="-1.571 0 0" xyz="-0.057649 -0.034678 -0.059005"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <link name="right_wheel">
+    <inertial>
+      <mass value="0.027"/>
+      <origin rpy="1.571 0 0" xyz="0 0 0"/>
+      <inertia ixx="0.00001095" ixy="0" ixz="0" iyy="0.00001095" iyz="0" izz="0.00002138"/>
+    </inertial>
+    <collision>
+      <origin rpy="1.571 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://learnbotic_description/meshes/Wheel.stl"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="1.571 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://learnbotic_description/meshes/Wheel.stl"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="chassis_to_right_wheel" type="continuous">
+    <parent link="chassis"/>
+    <child link="right_wheel"/>
+    <origin rpy="1.5701 0 0" xyz="-0.057649 -0.034678 0.059005"/>
+    <axis xyz="0 -1 0"/>
+  </joint>
+
+  <joint name="lidar" type="fixed">
+    <parent link="chassis"/>
+    <child link="base_sensor"/>
+    <origin rpy="1.571 0 0" xyz="0 0.049 0"/>
+  </joint>
+
+  <joint name="camera" type="fixed">
+    <parent link="chassis"/>
+    <child link="base_camera"/>
+    <origin rpy="-1.571 0 0" xyz="0.07456502 0.02996464 0.00016464"/>
+  </joint>
+
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_diff_drive.so">
+      <robotNamespace>/</robotNamespace>
+      <legacyModeNS>true</legacyModeNS>
+      <alwaysOn>true</alwaysOn>
+      <legacyMode>false</legacyMode>
+      <updateRate>40</updateRate>
+      <leftJoint>chassis_to_left_wheel</leftJoint>
+      <rightJoint>chassis_to_right_wheel</rightJoint>
+      <wheelSeparation>0.10966201</wheelSeparation>
+      <wheelDiameter>0.075</wheelDiameter>
+      <torque>20</torque>
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <publishWheelTF>true</publishWheelTF>
+      <publishOdomTF>true</publishOdomTF>
+      <publishWheelJointState>true</publishWheelJointState>
+      <robotBaseFrame>base_link</robotBaseFrame>
+    </plugin>
+  </gazebo>
+
+ 
+</robot>
