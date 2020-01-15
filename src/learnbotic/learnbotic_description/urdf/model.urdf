@@ -162,10 +162,12 @@
     <axis xyz="0 -1 0"/>
   </joint>
 
-  <joint name="lidar" type="fixed">
+  <joint name="lidar" type="revolute">
     <parent link="chassis"/>
-    <child link="base_sensor"/>
+    <child link="sensor"/>
     <origin rpy="1.571 0 0" xyz="0 0.049 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="-1.0" lower="-1.79769e+308" upper="1.79769e+308" velocity="1.0"/>
   </joint>
 
   <joint name="camera" type="fixed">
