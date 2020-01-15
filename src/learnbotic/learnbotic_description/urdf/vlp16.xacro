@@ -33,8 +33,6 @@
         </plugin>        
       </sensor>
     </gazebo>
-    <link name="base_sensor">
-    </link>
     <link name="sensor">
       <inertial>
         <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -53,10 +51,4 @@
         </geometry>
       </visual>      
     </link>
-
-    <joint name="base_to_sensor" type="fixed">
-      <parent link="base_sensor"/>
-      <child link="sensor"/>
-      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
-    </joint>
   </robot>
