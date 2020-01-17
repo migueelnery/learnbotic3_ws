@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-  <robot name="vlp-16" xmlns:xacro="http://ros.org/wiki/xacro">
+  <robot name="vlp16" xmlns:xacro="http://ros.org/wiki/xacro">
 
     <gazebo reference="sensor">
       <sensor type="ray" name="vlp">
@@ -14,12 +14,18 @@
             <stddev>0.02</stddev>
           </noise>
           <scan>
-            <horizontal>
+            <!-- <horizontal>
               <samples>360</samples>
               <resolution>1</resolution>
+              <min_angle>-3.14</min_angle>
+              <max_angle>3.14</max_angle>
+            </horizontal> -->
+            <vertical>
+              <samples>16</samples>
+              <resolution>1</resolution>
               <min_angle>0</min_angle>
-              <max_angle>6.28</max_angle>
-            </horizontal>
+              <max_angle>0.18</max_angle>
+            </vertical>
           </scan>
           <range>
             <min>0.2</min>
@@ -27,19 +33,22 @@
             <resolution>0.02</resolution>
           </range>
         </ray>
-        <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_laser.so">
+          <plugin name="velodyne_control" filename="libvelodybe_plugin.so">
+            <robotNamespace>/</robotNamespace>
+          </plugin>        
+          <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_velodyne_laser.so">
           <topicName>/diff/laser/scan</topicName>
           <frameName>sensor</frameName>
         </plugin>        
       </sensor>
     </gazebo>
-    <link name="sensor">
+    <link name="sensor1">
       <inertial>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <mass value ="0.05"/>
         <inertia ixx="0.000909131" iyy="0.000909131" izz="0.001107105" ixy="0" ixz="0" iyz="0"/>
       </inertial>
-      <collision>
+       <collision>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
           <mesh filename="package://learnbotic_description/meshes/vlp16.stl" scale="0.1 0.1 0.1"/>
@@ -49,6 +58,26 @@
         <geometry>
           <mesh filename="package://learnbotic_description/meshes/vlp16.stl" scale="0.1 0.1 0.1"/>
         </geometry>
-      </visual>      
+      </visual>            
     </link>
+    <link name="sensor">
+      <inertial>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <mass value ="0.05"/>
+        <inertia ixx="0.000909131" iyy="0.000909131" izz="0.001107105" ixy="0" ixz="0" iyz="0"/>
+      </inertial>        
+    </link>
+    <joint name="giro" type="revolute">
+      <parent link="sensor1"/>
+      <child link="sensor"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <limit effort="-1" lower="-1.79769e+308" upper="1.79769e+308" velocity="100"/>
+    </joint>
+  <gazebo>
+    <plugin name="velodyne_control" filename="libvelodyne_plugin.so">
+      <test>giro</test>
+      <velocity>50</velocity>
+    </plugin>
+  </gazebo>
   </robot>

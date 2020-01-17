@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <world name="basic">
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <!-- A ground plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- A testing model that includes the Velodyne sensor model -->
+    <include>
+        <uri>model://learnbotic_description</uri>
+    </include>
+
+      <!-- Attach the plugin to this model -->
+      <!-- <plugin name="velodyne_control" filename="libvelodyne_plugin.so">
+        <velocity>25</velocity>
+      </plugin>
+    -->
+
+  </world>
+</sdf>
